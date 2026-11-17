@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f1814">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Grensland">
+<title>Operatie Grensland</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app" id="app">
+
+  <!-- START -->
+  <section class="screen on" id="s-start">
+    <div class="center">
+      <p class="kicker">KSA · MISSIE</p>
+      <h1 class="logo">Operatie<br><span>Grensland</span></h1>
+      <p class="lead">Kies je bende.</p>
+      <div id="teamlist"></div>
+      <p class="hint" id="installhint"></p>
+    </div>
+  </section>
+
+  <!-- OPDRACHT 0 -->
+  <section class="screen" id="s-lock">
+    <div class="center">
+      <span class="chip p">OPDRACHT 0</span>
+      <h1 class="logo small">Waar zijn<br>we?</h1>
+      <p class="lead">Zoek het dichtstbijzijnde straatnaambord en typ de straatnaam in. Dan gaat de app open.</p>
+      <input class="field" id="street" placeholder="Straatnaam" autocomplete="off" autocapitalize="off" enterkeyhint="go">
+      <p class="err" id="lockerr"></p>
+      <button class="btn" id="unlock">Ontgrendel</button>
+      <button class="link" id="back">← Andere bende kiezen</button>
+    </div>
+  </section>
+
+  <!-- HOOFDSCHERM -->
+  <section class="screen" id="s-main">
+    <header class="top">
+      <i class="dot"></i>
+      <div class="tname"><b id="tname">Bende</b><small id="phase">…</small></div>
+      <div class="clock"><b id="countdown">--:--</b><small id="countlabel"></small></div>
+    </header>
+    <div class="banner" id="banner"></div>
+
+    <main class="body">
+      <div class="view on" id="v-map">
+        <div id="map"></div>
+        <div class="maptools">
+          <button class="round" id="locate" aria-label="Toon mijn positie">📍</button>
+        </div>
+        <div class="dist" id="dist">📡 Gps wordt gezocht…</div>
+      </div>
+
+      <div class="view pad" id="v-ch">
+        <h2>Challenge</h2>
+        <div id="live"></div>
+        <p class="hint" id="nextch"></p>
+        <h3 class="sub">Eerder vannacht</h3>
+        <div id="history"></div>
+      </div>
+
+      <div class="view pad" id="v-pu">
+        <h2>Power-ups</h2>
+        <p class="hint">Win ze met challenges. Activeer er één en toon het scherm aan de douanier. Daarna is hij op.</p>
+        <div class="pugrid" id="pulist"></div>
+      </div>
+
+      <div class="view pad" id="v-rules">
+        <h2>Regels</h2>
+        <button class="btn danger" id="sos">📞 Nood? Bel de spelleider</button>
+        <div class="card"><h3>De objecten</h3><table id="objtable"></table><p class="hint">Via post H met een H-kaartje: ×2.</p></div>
+        <div class="card"><h3>Aan de grens</h3>Alleen via de overgangen N, H en Z. Douanier schijnt je aan en roept je nummer: blijf staan. Controle duurt <b>30 s op H</b>, <b>15 s op N en Z</b>. Met een object ben je het kwijt.</div>
+        <div class="card red"><h3>⚠ Elias, de Grote Controleur</h3>Achter de grens loopt Elias, met een <b>rode</b> zaklamp. Hij telt niet af: roept hij je nummer, dan ben je meteen alles kwijt en zit je 2 minuten in de cel. Power-ups helpen niet tegen hem, behalve de Verklikker. Alleen vlak bij het depot ben je veilig. <b>Vanaf nacht valt</b> krijgt Elias versterking.</div>
+        <div class="card"><h3>Veiligheid</h3>Alleen openbare wegen en paden. Groepjes van minstens 4. Niet rennen op de Sint-Pietersstraat. Fluohesje aan langs de weg.</div>
+        <div class="card"><h3>Gsm</h3>
+          <label class="toggle"><input type="checkbox" id="wake"> Scherm aan laten (kost batterij)</label>
+          <p class="hint" id="installhint2"></p>
+        </div>
+        <div class="card"><h3>Leiding</h3><button class="btn ghost" id="reset">App resetten (pincode)</button></div>
+      </div>
+    </main>
+
+    <nav class="tabs">
+      <button class="on" data-v="v-map"><span>🗺️</span>Kaart</button>
+      <button data-v="v-ch"><span>🎯</span>Challenge<i class="badge" id="badge"></i></button>
+      <button data-v="v-pu"><span>⚡</span>Power-ups<i class="badge" id="pubadge"></i></button>
+      <button data-v="v-rules"><span>📜</span>Regels</button>
+    </nav>
+  </section>
+
+  <div class="modal" id="modal"><div class="box" id="modalbox"></div></div>
+  <div class="full" id="full"></div>
+  <div class="toast" id="toast"></div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
