@@ -5,12 +5,12 @@
    ========================================================= */
 window.GRENSLAND = {
 
-  // --- Spelleider -------------------------------------------------
-  // WhatsApp-nummer van de spelleider: landcode + nummer, zonder +, spaties of eerste 0.
-  // Voorbeeld: 0470 12 34 56  ->  "32470123456"
-  spelleiderWhatsApp: "32470000000",
-  // Telefoonnummer voor de noodknop (mag met +).
-  spelleiderTel: "+32470000000",
+  // --- Contact ---------------------------------------------------
+  // WhatsApp-groep waar de bendes hun bewijs posten.
+  whatsappGroep: "https://chat.whatsapp.com/BUVKn5gK0qPKxXlNUAzPfb",
+  // Noodknop: groepsleider.
+  noodNaam: "Flore",
+  noodTel: "+32468577043",
 
   // Pincode om de app te resetten (alleen voor de leiding).
   leidingPin: "1234",
@@ -24,17 +24,17 @@ window.GRENSLAND = {
   },
 
   // --- Kaart -----------------------------------------------------
-  // !! PAS DE COÖRDINATEN AAN !!
-  // In Google Maps: houd je vinger op de plek (gsm) of klik rechts (computer)
-  // en kopieer de twee getallen, bv. 50.80812, 2.71234
-  kaart: { centrum: [50.8065, 2.7180], zoom: 15 },
+  // Coördinaten overgenomen van de spelkaart (Westouter / Boeschepe).
+  // Wil je een plek verschuiven? In Google Maps: vinger op de plek houden
+  // (gsm) of rechtsklik (computer) en de twee getallen kopiëren.
+  kaart: { centrum: [50.8047, 2.7237], zoom: 16 },
 
   plekken: [
-    { id: "N",     naam: "Overgang N",   type: "post",   ll: [50.8105, 2.7205] },
-    { id: "H",     naam: "Hoofdpost H",  type: "post",   ll: [50.8060, 2.7180] },
-    { id: "Z",     naam: "Overgang Z",   type: "post",   ll: [50.8010, 2.7185] },
-    { id: "huis",  naam: "Smokkelhuis",  type: "huis",   ll: [50.8085, 2.7080] },
-    { id: "depot", naam: "Depot",        type: "depot",  ll: [50.8055, 2.7310] }
+    { id: "N",     naam: "Overgang N",   type: "post",   ll: [50.80809, 2.72506] },
+    { id: "H",     naam: "Hoofdpost H (Sint-Pietersstraat)", type: "post", ll: [50.80315, 2.72246] },
+    { id: "Z",     naam: "Overgang Z",   type: "post",   ll: [50.79901, 2.72274] },
+    { id: "huis",  naam: "Smokkelhuis (Rue des Sept Mesures / Rue Duyen Drève)", type: "huis", ll: [50.80596, 2.71751] },
+    { id: "depot", naam: "Depot (Verbrandhofstraat)", type: "depot", ll: [50.80340, 2.73192] }
   ],
 
   // --- Bendes ----------------------------------------------------

@@ -26,10 +26,10 @@ De app voor het smokkelspel van de KSA-jonghernieuwers. Hij werkt in de browser 
 
 Open `config.js` op GitHub, klik op het potloodje om het te bewerken, en klik daarna op **Commit changes**.
 
-- **`spelleiderWhatsApp`**: het gsm-nummer van de spelleider, met landcode en zonder +, spaties of eerste 0. Bijvoorbeeld 0470 12 34 56 wordt `32470123456`.
-- **`spelleiderTel`**: hetzelfde nummer, voor de noodknop.
+- **`whatsappGroep`**: de uitnodigingslink van de WhatsApp-groep waarin de bendes hun bewijs posten. Een groepslink kan geen tekst invullen, dus de app kopieert de tekst en opent dan de groep. Daar plakt de bende de tekst en voegt ze haar foto of video toe.
+- **`noodNaam` / `noodTel`**: wie de noodknop belt (nu Flore).
 - **`tijden`**: de uren van het spel.
-- **`plekken`**: ⚠️ **verplicht aan te passen.** Nu staan er geschatte coördinaten. Zo vind je de juiste:
+- **`plekken`**: de coördinaten zijn overgenomen van de spelkaart. Wil je een plek verschuiven, dan vind je de juiste getallen zo:
   - Open Google Maps en houd je vinger op de plek (gsm) of klik rechts (computer).
   - Kopieer de twee getallen, bijvoorbeeld `50.80812, 2.71234`.
   - Zet ze bij de juiste plek: `ll: [50.80812, 2.71234]`.
@@ -59,9 +59,10 @@ Daarna kun je de app op de testgsm resetten bij **Regels → App resetten** (met
 6. Laad de gsm volledig op en geef een powerbank mee.
 
 **Tijdens het spel**
-- De challenges verschijnen vanzelf. De bende stuurt het bewijs via de WhatsApp-knop naar de spelleider.
-- De spelleider beslist wie eerst was en stuurt **alleen die bende** de code van die challenge. De bende typt de code in en krijgt de power-up.
-- Een power-up activeert de bende zelf in de app. Daarna verschijnt een scherm met een live klok, om aan de douanier te tonen. Bij de Verklikker meldt de bende het meteen via WhatsApp, zodat de spelleider Elias kan bellen.
+- De challenges verschijnen vanzelf. De bende tikt op de groene knop, plakt de tekst in de WhatsApp-groep en voegt haar foto of video toe.
+- De spelleider beslist wie eerst was en stuurt **alleen die bende privé** de code van die challenge, dus niet in de groep, want daar lezen alle bendes mee. De bende typt de code in en krijgt de power-up.
+- Zorg dat elke team-gsm vooraf lid is van de WhatsApp-groep.
+- Een power-up activeert de bende zelf in de app. Daarna verschijnt een scherm met een live klok, om aan de douanier te tonen. Bij de Verklikker meldt de bende het meteen in de WhatsApp-groep, zodat de spelleider Elias kan bellen.
 
 ## 5. Nieuwe codes maken (optioneel)
 

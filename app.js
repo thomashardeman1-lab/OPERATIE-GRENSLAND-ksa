@@ -25,7 +25,13 @@
   function toast(t) { const el = $('toast'); el.textContent = t; el.classList.add('on'); clearTimeout(toast.h); toast.h = setTimeout(() => el.classList.remove('on'), 3000); }
   function norm(s) { return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9 ]/g, ' ').replace(/\s+/g, ' ').trim(); }
   async function sha(s) { const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)); return [...new Uint8Array(b)].map(x => x.toString(16).padStart(2, '0')).join(''); }
-  function wa(text) { return 'https://wa.me/' + C.spelleiderWhatsApp + '?text=' + encodeURIComponent(text); }
+  // WhatsApp-groep: tekst wordt gekopieerd, daarna gaat de groep open (een groepslink kan geen tekst invullen).
+  function openGroep(text) {
+    try { navigator.clipboard && navigator.clipboard.writeText(text); } catch (e) {}
+    toast('Tekst gekopieerd. Plak hem in de groep en voeg je foto of video toe.');
+    setTimeout(() => { location.href = C.whatsappGroep; }, 700);
+  }
+  document.addEventListener('click', e => { const b = e.target.closest('[data-wa]'); if (b) { e.preventDefault(); openGroep(b.dataset.wa); } });
   function team() { return C.bendes[S.team]; }
   function buzz(p) { try { navigator.vibrate && navigator.vibrate(p); } catch (e) {} }
   let actx;
@@ -142,8 +148,8 @@
         <h3 style="font-size:20px;margin:10px 0 4px">${c.naam}</h3><p style="margin:0">${c.opdracht}</p>
         <div class="prize"><small>De eerste bende wint</small><b>${p.e} ${p.naam}</b></div>
         ${won ? '<span class="chip g">🏆 Gewonnen! Power-up toegevoegd.</span>' :
-        `<a class="btn wa" href="${wa(team().naam + ' – challenge "' + c.naam + '" (' + c.tijd + '). Bewijs:')}" target="_blank" rel="noopener">📷 Stuur bewijs via WhatsApp</a>
-         <p class="hint" style="margin:10px 0 0">Waren jullie eerst? Dan krijg je van de spelleider een code:</p>
+        `<button class="btn wa" data-wa="${(team().naam + ' – challenge "' + c.naam + '" (' + c.tijd + '). Bewijs:').replace(/"/g, '&quot;')}">📷 Stuur bewijs in de WhatsApp-groep</button>
+         <p class="hint" style="margin:10px 0 0">Waren jullie eerst? Dan stuurt de spelleider jullie privé een code:</p>
          <div class="coderow"><input class="field" id="code" placeholder="CODE" autocomplete="off" autocapitalize="characters" enterkeyhint="done"><button class="btn" id="codeok">OK</button></div>`}
       </div>`;
       const ok = $('codeok');
@@ -191,7 +197,7 @@
     S.pu[k]--; S.log.push({ k, t: t0 }); save(); render();
     $('full').innerHTML = `<div class="e">${p.e}</div><h3>${p.naam}</h3><p>${p.uitleg}</p><div class="live" id="lv"></div>
       <div class="meta">${team().naam} · geactiveerd om ${clockStr(t0)}</div>
-      ${p.meld ? `<a class="btn wa" href="${wa(team().naam + ' activeert ' + p.naam + ' om ' + clockStr(t0) + '. Elias moet 3 minuten stilstaan!')}" target="_blank" rel="noopener">📲 Meld aan spelleider</a>` : ''}
+      ${p.meld ? `<button class="btn wa" data-wa="${team().naam} activeert ${p.naam} om ${clockStr(t0)}. Elias moet 3 minuten stilstaan!">📲 Meld in de WhatsApp-groep</button>` : ''}
       <button class="btn" id="donepu">Sluiten</button>`;
     $('full').classList.add('on'); buzz(200);
     clearInterval(activate.h);
@@ -202,7 +208,8 @@
 
   // ---------- Regels, nood, scherm aan, reset ----------
   $('objtable').innerHTML = C.objecten.map(o => `<tr><td>${o.e} ${o.naam}</td><td>${o.punten}</td></tr>`).join('');
-  $('sos').onclick = () => { location.href = 'tel:' + C.spelleiderTel; };
+  $('sos').textContent = '📞 Nood? Bel ' + C.noodNaam + ' (' + C.noodTel.replace(/^\+32/, '0').replace(/(\d{4})(\d{2})(\d{2})(\d{2})$/, '$1 $2 $3 $4') + ')';
+  $('sos').onclick = () => { location.href = 'tel:' + C.noodTel; };
   let wakeLock = null;
   $('wake').onchange = async e => {
     try {
