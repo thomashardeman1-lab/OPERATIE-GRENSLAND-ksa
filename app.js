@@ -78,6 +78,8 @@
       const icon = L.divIcon({ className: '', html: `<div class="mk ${p.type}">${label[p.type](p)}</div>`, iconSize: [36, 36], iconAnchor: [18, 18] });
       L.marker(p.ll, { icon }).addTo(map).bindPopup(`<b>${p.naam}</b>`);
     });
+    // Toon meteen het hele speelveld.
+    map.fitBounds(L.latLngBounds(C.plekken.map(p => p.ll)), { padding: [30, 30] });
     map.on('dragstart', () => { follow = false; });
     startGps();
   }

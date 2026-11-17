@@ -1,5 +1,5 @@
 // Service worker: houdt de app beschikbaar bij zwak bereik en bewaart bekeken kaartstukjes.
-const VERSIE = 'grensland-v2';
+const VERSIE = 'grensland-v3';
 const APP = ['./', './index.html', './style.css', './app.js', './config.js', './manifest.webmanifest', './icon-192.png', './icon-512.png',
   'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css', 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js'];
 self.addEventListener('install', e => { e.waitUntil(caches.open(VERSIE).then(c => c.addAll(APP)).then(() => self.skipWaiting())); });
